@@ -7,7 +7,8 @@
 1. `region_name_lookup_rag.csv`
 2. `area_codes_rag.csv`
 3. `indicator_codes_rag.csv`
-4. `region_codes_rag.csv`
+4. `place_region_overrides_rag.csv`
+5. `region_codes_rag.csv`
 
 ## 중복처럼 보이는 값 설명
 
@@ -21,3 +22,4 @@
 - `indicator_codes_rag.csv`: 36행
 - `region_codes_rag.csv`: 252행
 - `region_name_lookup_rag.csv`: 1948행
+- `place_region_overrides_rag.csv`: 2행

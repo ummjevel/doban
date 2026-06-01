@@ -2,9 +2,9 @@
 
 This file stores implementation notes for Korea Tourism Organization OpenAPI connectors used by Doban.
 
-## 최종 MVP 선택 API 6개
+## 최종 MVP 선택 API 7개
 
-도반 MVP에서 사용할 API는 아래 6개로 확정한다.
+도반 MVP에서 사용할 API는 아래 7개로 확정한다.
 
 | 번호 | 제출 API명 | 데이터명 | 공공데이터포털 링크 |
 |---:|---|---|---|
@@ -14,6 +14,71 @@ This file stores implementation notes for Korea Tourism Organization OpenAPI con
 | 4 | 관광지별 연관관광지 정보 서비스 | 한국관광공사_관광지별 연관 관광지 정보 | https://www.data.go.kr/data/15128560/openapi.do |
 | 5 | 지역별 관광 자원 수요 정보 서비스 | 한국관광공사_지역별 관광 자원 수요 | https://www.data.go.kr/data/15152138/openapi.do |
 | 6 | 기초지자체 중심관광지 정보 서비스 | 한국관광공사_기초지자체 중심 관광지 정보 | https://www.data.go.kr/data/15128559/openapi.do |
+| 7 | 국문 관광정보 서비스 | 한국관광공사_국문 관광정보 서비스_GW | https://www.data.go.kr/data/15101578/openapi.do |
+
+## 한국관광공사_국문 관광정보 서비스_GW
+
+- Public data portal URL: https://www.data.go.kr/data/15101578/openapi.do
+- Submit API name: 국문 관광정보 서비스
+- Service host: `https://apis.data.go.kr/B551011/KorService2`
+- Doban role: 사용자가 행정구역명이 아니라 관광지명/상권명을 입력했을 때 키워드 검색으로 관광지의 주소, 좌표, 콘텐츠 ID를 확인하는 보조 API
+- Data caution: KorService2의 관광정보 코드 체계와 데이터랩 계열 `areaCd`, `signguCd` 체계를 바로 동일하게 취급하지 않는다. 키워드 검색 결과의 `addr1`, `addr2`, 법정동 정보, 좌표를 확인한 뒤 도반의 지역 코드 CSV로 다시 매핑한다.
+
+### Recommended Operations for Doban
+
+```text
+GET /searchKeyword2
+키워드 검색
+
+GET /detailCommon2
+공통정보 조회
+
+GET /detailImage2
+이미지정보 조회
+
+GET /areaCode2
+지역코드 조회
+
+GET /ldongCode2
+법정동코드 조회
+```
+
+Common query parameters:
+
+| Parameter | Required | Example | Description |
+|---|---:|---|---|
+| serviceKey | Yes | API key | 인증키 |
+| MobileOS | Yes | ETC | OS 구분 |
+| MobileApp | Yes | Doban | 서비스명/앱명 |
+| _type | No | json | JSON 응답 요청 |
+| numOfRows | No | 10 | 한 페이지 결과 수 |
+| pageNo | No | 1 | 페이지 번호 |
+
+`searchKeyword2` frequently used parameters:
+
+| Parameter | Required | Example | Description |
+|---|---:|---|---|
+| keyword | Yes | 전주 한옥마을 | 검색어 |
+| arrange | No | A | 정렬 구분 |
+
+Useful response fields:
+
+| Field | Meaning |
+|---|---|
+| contentid | 콘텐츠 ID |
+| contenttypeid | 콘텐츠 타입 ID |
+| title | 콘텐츠 제목 |
+| addr1, addr2 | 주소/상세주소 |
+| mapx, mapy | 경도/위도 |
+| firstimage, firstimage2 | 대표 이미지 |
+| tel | 전화번호 |
+
+### Doban Interpretation Rules
+
+- 사용자가 관광지명이나 상권명을 입력하면 `searchKeyword2`로 먼저 장소 후보를 찾는다.
+- 검색 결과가 여러 개이면 제목과 주소를 기준으로 가장 관련 높은 후보를 선택하되, 확신이 낮으면 사용자에게 확인 질문을 한다.
+- 검색 결과의 주소가 확인되면 `region_name_lookup_rag.csv` 또는 `region_codes_rag.csv`를 사용해 데이터랩 API용 `areaCd`, `signguCd`로 변환한다.
+- `searchKeyword2` 결과만으로 창업 판단을 하지 않는다. 장소 확인용으로 사용하고, 창업 분석은 방문자수/수요강도/자원수요/중심관광지/연관관광지 API와 조합한다.
 
 ## 한국관광공사_빅데이터_지역별 방문자수_GW
 
