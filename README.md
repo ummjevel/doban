@@ -79,6 +79,7 @@ progress.md
 todo.md
 api.md
 api-list.md
+docs/
 codes/
   processed/
   rag_upload/
@@ -91,6 +92,7 @@ codes/
 - `todo.md`: 날짜별 할 일과 체크리스트
 - `api.md`: API별 상세 명세와 해석 규칙
 - `api-list.md`: API 선택 목록, 엔노이아 테스트 상태, 제출 API 관리
+- `docs/troubleshooting-and-improvements.md`: 시행착오와 개선 기록
 - `codes/processed/`: 가공 중간 산출물
 - `codes/rag_upload/`: 엔노이아 문서 폴더 업로드용 CSV
 
