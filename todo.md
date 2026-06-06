@@ -58,10 +58,10 @@
 
 - [x] 한국관광공사 OpenAPI 활용 신청 완료
 - [x] 제출용 OpenAPI 신청자명 확인: 전민정, 안중현
-- [ ] Encoding 서비스키와 Decoding 서비스키 확인
+- [x] Encoding 서비스키와 Decoding 서비스키 확인 - Encoding(안되면 Decoding)
 - [x] 엔노이아 API 커넥터에 서비스키 등록
 - [x] 선택한 OpenAPI별 기본값 테스트 호출 실행
-- [ ] 각 API 응답 형식 확인: JSON 또는 XML
+- [x] 각 API 응답 형식 확인: JSON 또는 XML = JSON
 - [ ] 각 API 필수 파라미터 확인: 지역 코드, 시군구 코드, 기준연월, 페이지 번호, 서비스키, MobileOS, MobileApp 등
 - [x] 지역/시군구/지표 코드값 데이터 파일 다운로드
 - [x] 코드값 데이터 파일 내용 확인
@@ -111,7 +111,7 @@
 - [x] 코드값 파일을 엔노이아 업로드 규칙에 맞게 정제
 - [x] 선택한 OpenAPI 활용 신청
 - [x] 제출용 신청자명 확인: 전민정, 안중현
-- [ ] Encoding/Decoding 서비스키 준비
+- [x] Encoding/Decoding 서비스키 준비
 - [x] 선택한 API를 엔노이아 API 커넥터에 등록
 - [x] 엔노이아에서 샘플 API 호출 성공 확인
 - [x] 성공한 API 테스트 결과를 `api-list.md`에 기록
